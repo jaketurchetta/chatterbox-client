@@ -5,7 +5,13 @@ var MessagesView = {
   initialize: function() {
   },
 
-  render: function() {
+  renderMessage: function(message) {
+    $('#chats').prepend('<div>' + message + '</div>');
+
   }
+
+
+
+
 
 };
