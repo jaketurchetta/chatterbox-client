@@ -4,12 +4,13 @@ var App = {
 
   username: 'anonymous',
 
-  initialize: function() {
+  initialize: function() { //sets initial state
     App.username = window.location.search.substr(10);
 
     FormView.initialize();
     RoomsView.initialize();
     MessagesView.initialize();
+    console.log('HERE');
 
     // Fetch initial batch of messages
     App.startSpinner();
