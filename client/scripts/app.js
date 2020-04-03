@@ -19,12 +19,34 @@ var App = {
 
   fetch: function(callback = ()=>{}) {
     Parse.readAll((data) => {
+      if (!data.results || !data.results.length) {
+        return;
+      }
+
+      Messages.update(data.results, MessagesView.render);
       // examine the response from the server request:
       console.log(data);
+
+      Rooms.update(data.results, RoomsView.render);
 
       callback();
     });
   },
+
+  initialize: function() {
+    App.username = window.location.search.substr(10);
+
+    FormView.initialize();
+    RoomsView.initialize();
+    MessagesView.initialize();
+
+    App.startSpinner()
+
+    App.fetch(App.stopSpinner)
+
+
+    setInterval(App.fetch(), 3000)
+    },
 
   startSpinner: function() {
     App.$spinner.show();
