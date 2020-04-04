@@ -19,35 +19,17 @@ var App = {
   },
 
   fetch: function(callback = ()=>{}) {
-    Parse.readAll((data) => {
-      if (!data.results || !data.results.length) {
-        return;
-      }
-
-      Messages.update(data.results, MessagesView.render);
+    var cb = (data) => {
       // examine the response from the server request:
-      console.log(data);
+      console.log(data); //do more work here. add the data to our messages, into messages object.
+      Messages.updateMessages(data);
 
-      Rooms.update(data.results, RoomsView.render);
 
       callback();
-    });
+    }
+
+    Parse.readAll(cb);
   },
-
-  initialize: function() {
-    App.username = window.location.search.substr(10);
-
-    FormView.initialize();
-    RoomsView.initialize();
-    MessagesView.initialize();
-
-    App.startSpinner()
-
-    App.fetch(App.stopSpinner)
-
-
-    setInterval(App.fetch(), 3000)
-    },
 
   startSpinner: function() {
     App.$spinner.show();

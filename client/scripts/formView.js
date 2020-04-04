@@ -1,6 +1,6 @@
 var FormView = {
 
-  $form: $('form'), 
+  $form: $('form'),
 
   initialize: function() {
     FormView.$form.on('submit', FormView.handleSubmit);
@@ -17,11 +17,5 @@ var FormView = {
     var status = active ? 'true' : null;
     FormView.$form.find('input[type=submit]').attr('disabled', status);
   }
-
-  Parse.create(message, (data) => {
-    Messages.add(Object.assign(message, data),
-    MessagesView.render)
-
-    }
 
 };
