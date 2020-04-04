@@ -10,7 +10,8 @@ var App = {
     FormView.initialize();
     RoomsView.initialize();
     MessagesView.initialize();
-    console.log('HERE');
+    //call create(input message, successCB)
+    //successCB will be App.messageSent(data)
 
     // Fetch initial batch of messages
     App.startSpinner();
@@ -21,13 +22,12 @@ var App = {
   fetch: function(callback = ()=>{}) {
     var cb = (data) => {
       // examine the response from the server request:
-      console.log(data); //do more work here. add the data to our messages, into messages object.
+      // console.log(data); //do more work here. add the data to our messages, into messages object.
       Messages.updateMessages(data);
-
-
+      MessagesView.renderMessage(message);
+      Friends.onClickAddFriend();
       callback();
     }
-
     Parse.readAll(cb);
   },
 
@@ -39,5 +39,10 @@ var App = {
   stopSpinner: function() {
     App.$spinner.fadeOut('fast');
     FormView.setStatus(false);
+  },
+
+  messageSent: function (data) {
+    console.log('chatterbox: Message sent');
   }
+
 };

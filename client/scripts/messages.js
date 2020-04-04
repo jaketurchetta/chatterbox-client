@@ -1,11 +1,15 @@
 var Messages = {
 
-    var alllMessages = [];
+    allMessages : [],
 
     updateMessages: function(data) {
-      for (var i =0; i < data.length; i++) {
-        var message = data[i];
-        return message;
+
+      console.log(data.results) //returns array of message objects
+
+      for (var i = 0; i < data.results.length; i++) {
+        var eachMessage = data.results[i];
+        MessagesView.renderMessage(eachMessage);
+        Messages.allMessages.push(eachMessage);
       }
     }
 
